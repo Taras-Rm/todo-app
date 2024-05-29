@@ -18,3 +18,7 @@ export type UpdateTask = {
   description: string;
   priority: TaskPriority;
 };
+
+export type FilterTasks = {
+  status?: TaskStatus;
+};

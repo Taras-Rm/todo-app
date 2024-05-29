@@ -28,7 +28,14 @@ const deleteTask = async (req, res, next) => {
 
 const getAllTasks = async (req, res, next) => {
   try {
-    const tasks = await Task.find();
+    const { status } = req.query;
+
+    const query = {};
+    if (status) {
+      query.status = status;
+    }
+
+    const tasks = await Task.find(query);
 
     res.status(httpStatus.OK).json(tasks);
   } catch (error) {

@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
 import validate from "../middlewares/validate.js";
-import { priorityOptions, taskStatus } from "../utils/task.js";
+import { taskStatus } from "../utils/task.js";
 
 const createTaskValidator = validate([
   body("description")

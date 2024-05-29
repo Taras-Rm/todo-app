@@ -1,9 +1,15 @@
-import { CreateTask, Task, TaskStatus, UpdateTask } from "../types/task";
+import {
+  CreateTask,
+  Task,
+  TaskStatus,
+  UpdateTask,
+  FilterTasks,
+} from "../types/task";
 import api from "./api";
 
 const tasksApi = {
-  getAll: async () => {
-    return api.get("/tasks");
+  getAll: async ({ status }: FilterTasks) => {
+    return api.get("/tasks", { params: { status } });
   },
 
   getTask: async (id: string) => {

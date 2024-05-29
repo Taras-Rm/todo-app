@@ -75,6 +75,7 @@ function EditTaskModal({
                 priority: Number(e.target.value) as TaskPriority,
               })
             }
+            className="outline-none border-2 rounded-md p-1.5"
           >
             {taskPriorityOptions.map((num) => (
               <option value={num}>{num}</option>
