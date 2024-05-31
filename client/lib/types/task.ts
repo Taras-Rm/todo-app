@@ -19,6 +19,6 @@ export type UpdateTask = {
   priority: TaskPriority;
 };
 
-export type FilterTasks = {
+export type TasksFilter = {
   status?: TaskStatus;
 };

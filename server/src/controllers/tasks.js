@@ -28,11 +28,14 @@ const deleteTask = async (req, res, next) => {
 
 const getAllTasks = async (req, res, next) => {
   try {
-    const { status } = req.query;
+    const { status, description } = req.query;
 
     const query = {};
     if (status) {
       query.status = status;
+    }
+    if (description) {
+      query.description = { $regex: new RegExp(description, "i") };
     }
 
     const tasks = await Task.find(query);

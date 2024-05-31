@@ -6,7 +6,7 @@ import tasksApi from "@/lib/api/tasks";
 import useModal from "@/lib/hooks/useModal";
 import {
   CreateTask,
-  FilterTasks,
+  TasksFilter,
   Task,
   TaskStatus,
   UpdateTask,
@@ -15,13 +15,17 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filterTasks, setFilterTasks] = useState<FilterTasks>({});
+  const [tasksFilter, setTasksFilter] = useState<TasksFilter>({});
+  const [searchTaskDescription, setSearchTaskDescription] = useState("");
 
   const createTaskModalProps = useModal();
 
   const handleGetAllTasks = async () => {
     try {
-      const response = await tasksApi.getAll(filterTasks);
+      const response = await tasksApi.getAll(
+        tasksFilter,
+        searchTaskDescription
+      );
       setTasks(response.data);
     } catch (error) {
       console.log(error);
@@ -30,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     handleGetAllTasks();
-  }, [filterTasks]);
+  }, [tasksFilter, searchTaskDescription]);
 
   const updateTaskStatus = async (id: string, status: TaskStatus) => {
     try {
@@ -83,13 +87,15 @@ export default function Home() {
         <input
           placeholder="Description..."
           className="border-2 rounded-md p-2 outline-none"
+          value={searchTaskDescription}
+          onChange={(e) => setSearchTaskDescription(e.target.value)}
         />
         <select
-          defaultValue={filterTasks.status}
+          defaultValue={tasksFilter.status}
           className="border-2 rounded-md p-2 outline-none"
           onChange={(e) =>
-            setFilterTasks({
-              ...filterTasks,
+            setTasksFilter({
+              ...tasksFilter,
               status: e.target.value as TaskStatus,
             })
           }

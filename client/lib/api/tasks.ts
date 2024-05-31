@@ -3,13 +3,15 @@ import {
   Task,
   TaskStatus,
   UpdateTask,
-  FilterTasks,
+  TasksFilter,
 } from "../types/task";
 import api from "./api";
 
 const tasksApi = {
-  getAll: async ({ status }: FilterTasks) => {
-    return api.get("/tasks", { params: { status } });
+  getAll: async ({ status }: TasksFilter, serchDescription: string) => {
+    return api.get("/tasks", {
+      params: { status, description: serchDescription },
+    });
   },
 
   getTask: async (id: string) => {
