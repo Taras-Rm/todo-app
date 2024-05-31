@@ -73,7 +73,7 @@ export default function Home() {
   };
 
   return (
-    <main className="mx-auto max-w-4xl pt-5 h-screen space-y-3">
+    <main className="mx-auto max-w-4xl pt-5 h-screen">
       <div className="flex justify-center flex-col text-center gap-y-3">
         <h3 className="text-2xl">Todo list</h3>
         <button
@@ -83,7 +83,7 @@ export default function Home() {
           Add task +
         </button>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between my-3">
         <input
           placeholder="Description..."
           className="border-2 rounded-md p-2 outline-none"
