@@ -1,8 +1,10 @@
+import { taskPriorityOptions } from "./../constants/taskDetails";
+
 export type TaskStatus = "done" | "undone";
 
 export type SortOptions = "asc" | "desc";
 
-export type TaskPriority = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type TaskPriority = (typeof taskPriorityOptions)[number];
 
 export type Task = {
   _id: string;

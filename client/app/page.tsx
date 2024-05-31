@@ -2,6 +2,7 @@
 import CreateTaskModal from "@/components/CreateTaskModal";
 import TasksTable from "@/components/TasksTable";
 import tasksApi from "@/lib/api/tasks";
+import { taskStatusOptions } from "@/lib/constants/taskDetails";
 import useModal from "@/lib/hooks/useModal";
 import {
   CreateTask,
@@ -15,29 +16,22 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [searchTaskDescription, setSearchTaskDescription] = useState("");
+
+  // tasks (filter, sort)
   const [tasksFilter, setTasksFilter] = useState<TasksFilter>({});
   const [tasksSort, setTasksSort] = useState<TasksSort>({});
-
-  const onSortPriorityClick = () => {
-    setTasksSort((sort) => ({
-      ...sort,
-      priority:
-        sort.priority === "asc" ? "desc" : !sort.priority ? "asc" : undefined,
-    }));
-  };
-
-  const [searchTaskDescription, setSearchTaskDescription] = useState("");
 
   const createTaskModalProps = useModal();
 
   const handleGetAllTasks = async () => {
     try {
-      const response = await tasksApi.getAll(
+      const { data } = await tasksApi.getAllTasks(
         tasksFilter,
         tasksSort,
         searchTaskDescription
       );
-      setTasks(response.data);
+      setTasks(data);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +40,14 @@ export default function Home() {
   useEffect(() => {
     handleGetAllTasks();
   }, [tasksFilter, tasksSort, searchTaskDescription]);
+
+  const onSortPriorityClick = () => {
+    setTasksSort((sort) => ({
+      ...sort,
+      priority:
+        sort.priority === "asc" ? "desc" : !sort.priority ? "asc" : undefined,
+    }));
+  };
 
   const updateTaskStatus = async (id: string, status: TaskStatus) => {
     try {
@@ -111,9 +113,11 @@ export default function Home() {
             })
           }
         >
-          <option value={""}>All</option>
-          <option value={"done"}>Done</option>
-          <option value={"undone"}>Undone</option>
+          {taskStatusOptions.map((opt) => (
+            <option value={opt.value} key={opt.value}>
+              {opt.label}
+            </option>
+          ))}
         </select>
       </div>
       <TasksTable

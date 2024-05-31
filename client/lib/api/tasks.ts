@@ -9,7 +9,7 @@ import {
 import api from "./api";
 
 const tasksApi = {
-  getAll: async (
+  getAllTasks: async (
     { status }: TasksFilter,
     { priority }: TasksSort,
     serchDescription: string
@@ -25,7 +25,7 @@ const tasksApi = {
   },
 
   getTask: async (id: string) => {
-    return api.get<Task>(`/tasks/${id}`);
+    return api.get(`/tasks/${id}`);
   },
 
   setTaskStatus: async (id: string, status: TaskStatus) => {
