@@ -1,5 +1,4 @@
 "use client";
-
 import CreateTaskModal from "@/components/CreateTaskModal";
 import TasksTable from "@/components/TasksTable";
 import tasksApi from "@/lib/api/tasks";
@@ -87,7 +86,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-4xl pt-5 h-screen">
       <div className="flex justify-center flex-col text-center gap-y-3">
-        <h3 className="text-2xl">Todo list</h3>
+        <h3 className="text-3xl">Todo list</h3>
         <button
           className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
           onClick={createTaskModalProps.open}

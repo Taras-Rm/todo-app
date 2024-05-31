@@ -54,7 +54,9 @@ function CreateTaskModal({ createTask, ...modalProps }: CreateTaskModalProps) {
                 className="outline-none border-2 rounded-md p-1.5 h-full mt-2"
               >
                 {taskPriorityOptions.map((num) => (
-                  <option value={num}>{num}</option>
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
                 ))}
               </select>
             </div>

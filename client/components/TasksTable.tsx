@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { RiDeleteBin5Fill, RiEdit2Line } from "react-icons/ri";
 import EditTaskModal from "./EditTaskModal";
 import SortButton from "./common/SortButton";
+import { FaCheckCircle } from "react-icons/fa";
 
 interface TasksTableProps {
   tasks: Task[];
@@ -54,6 +55,7 @@ function TasksTable({
       <tbody>
         {tasks.map((task, rowId) => (
           <Row
+            key={task._id}
             task={task}
             rowId={rowId}
             updateTaskStatus={updateTaskStatus}
@@ -92,16 +94,16 @@ function Row({
     <tr className="border-y-2 border-y-gray-300">
       <td key={rowId}>
         <div className="flex items-center p-3">
-          <input
-            type="checkbox"
-            className="mr-3 accent-green-500 rounded-full"
+          <FaCheckCircle
+            className={`mr-3 cursor-pointer ${
+              task.status === "done" ? "text-green-500" : "hover:text-gray-600"
+            }`}
             onClick={() =>
               updateTaskStatus(
                 task._id,
                 task.status === "done" ? "undone" : "done"
               )
             }
-            checked={task.status === "done"}
           />
           <div className={`${task.status === "done" ? "line-through" : ""}`}>
             {task.description}
