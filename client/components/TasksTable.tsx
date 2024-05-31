@@ -1,17 +1,27 @@
 import useModal from "@/lib/hooks/useModal";
-import { Task, TaskStatus, UpdateTask } from "@/lib/types/task";
+import { SortOptions, Task, TaskStatus, UpdateTask } from "@/lib/types/task";
 import React, { useState } from "react";
 import { RiDeleteBin5Fill, RiEdit2Line } from "react-icons/ri";
 import EditTaskModal from "./EditTaskModal";
+import SortButton from "./common/SortButton";
 
 interface TasksTableProps {
   tasks: Task[];
   updateTaskStatus: (id: string, status: TaskStatus) => void;
   deleteTask: (id: string) => void;
   updateTask: (id: string, status: UpdateTask) => void;
+  onSortPriorityClick: () => void;
+  prioritySort?: SortOptions;
 }
 
-function TasksTable({ tasks, updateTaskStatus, deleteTask, updateTask }: TasksTableProps) {
+function TasksTable({
+  tasks,
+  updateTaskStatus,
+  deleteTask,
+  updateTask,
+  onSortPriorityClick,
+  prioritySort,
+}: TasksTableProps) {
   const editTaskModalProps = useModal();
   const [editTaskId, setEditTaskId] = useState<string | null>(null);
 
@@ -28,7 +38,13 @@ function TasksTable({ tasks, updateTaskStatus, deleteTask, updateTask }: TasksTa
             Tasks
           </th>
           <th key={"priority"} className="p-3">
-            Priority
+            <div className="flex items-center justify-center">
+              Priority
+              <SortButton
+                onSortPriorityClick={onSortPriorityClick}
+                value={prioritySort}
+              />
+            </div>
           </th>
           <th key={"actions"} className="p-3">
             Actions
@@ -47,7 +63,11 @@ function TasksTable({ tasks, updateTaskStatus, deleteTask, updateTask }: TasksTa
         ))}
       </tbody>
       {editTaskId && (
-        <EditTaskModal {...editTaskModalProps} taskId={editTaskId} updateTask={updateTask} />
+        <EditTaskModal
+          {...editTaskModalProps}
+          taskId={editTaskId}
+          updateTask={updateTask}
+        />
       )}
     </table>
   );

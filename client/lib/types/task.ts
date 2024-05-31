@@ -1,5 +1,7 @@
 export type TaskStatus = "done" | "undone";
 
+export type SortOptions = "asc" | "desc";
+
 export type TaskPriority = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export type Task = {
@@ -21,4 +23,8 @@ export type UpdateTask = {
 
 export type TasksFilter = {
   status?: TaskStatus;
+};
+
+export type TasksSort = {
+  priority?: SortOptions;
 };

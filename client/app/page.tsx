@@ -10,12 +10,23 @@ import {
   Task,
   TaskStatus,
   UpdateTask,
+  TasksSort,
 } from "@/lib/types/task";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tasksFilter, setTasksFilter] = useState<TasksFilter>({});
+  const [tasksSort, setTasksSort] = useState<TasksSort>({});
+
+  const onSortPriorityClick = () => {
+    setTasksSort((sort) => ({
+      ...sort,
+      priority:
+        sort.priority === "asc" ? "desc" : !sort.priority ? "asc" : undefined,
+    }));
+  };
+
   const [searchTaskDescription, setSearchTaskDescription] = useState("");
 
   const createTaskModalProps = useModal();
@@ -24,6 +35,7 @@ export default function Home() {
     try {
       const response = await tasksApi.getAll(
         tasksFilter,
+        tasksSort,
         searchTaskDescription
       );
       setTasks(response.data);
@@ -34,7 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     handleGetAllTasks();
-  }, [tasksFilter, searchTaskDescription]);
+  }, [tasksFilter, tasksSort, searchTaskDescription]);
 
   const updateTaskStatus = async (id: string, status: TaskStatus) => {
     try {
@@ -110,6 +122,8 @@ export default function Home() {
         updateTaskStatus={updateTaskStatus}
         deleteTask={deleteTask}
         updateTask={updateTask}
+        onSortPriorityClick={onSortPriorityClick}
+        prioritySort={tasksSort.priority}
       />
       <CreateTaskModal {...createTaskModalProps} createTask={createTask} />
     </main>
