@@ -28,7 +28,7 @@ const deleteTask = async (req, res, next) => {
 
 const getAllTasks = async (req, res, next) => {
   try {
-    const { status, description, sortBy, order } = req.query;
+    const { status, description, sortByPriority } = req.query;
 
     const query = {};
     if (status) {
@@ -39,8 +39,8 @@ const getAllTasks = async (req, res, next) => {
     }
 
     const execQuery = Task.find(query);
-    if (sortBy && order) {
-      execQuery.sort({ [sortBy]: order });
+    if (sortByPriority) {
+      execQuery.sort({ priority: sortByPriority });
     }
 
     const tasks = await execQuery.exec();

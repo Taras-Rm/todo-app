@@ -11,6 +11,7 @@ export type Task = {
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
+  createdAt: string;
 };
 
 export type CreateTask = {
@@ -29,4 +30,10 @@ export type TasksFilter = {
 
 export type TasksSort = {
   priority?: SortOptions;
+};
+
+export type TasksSearchParams = {
+  description?: string;
+  status?: TaskStatus;
+  sortByPriority?: SortOptions;
 };

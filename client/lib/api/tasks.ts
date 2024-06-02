@@ -4,6 +4,7 @@ import {
   UpdateTask,
   TasksFilter,
   TasksSort,
+  TasksSearchParams,
 } from "../types/task";
 import api from "./api";
 
@@ -13,13 +14,20 @@ const tasksApi = {
     { priority }: TasksSort,
     serchDescription: string
   ) => {
+    const params: TasksSearchParams = {};
+
+    if (serchDescription) {
+      params.description = serchDescription;
+    }
+    if (status) {
+      params.status = status;
+    }
+    if (priority) {
+      params.sortByPriority = priority;
+    }
+    
     return api.get("/tasks", {
-      params: {
-        status,
-        description: serchDescription,
-        sortBy: "priority",
-        order: priority,
-      },
+      params,
     });
   },
 

@@ -25,19 +25,19 @@ function EditTaskModal({
     priority: 1,
   });
 
-  const handleGetTask = async () => {
-    try {
-      const response = await tasksApi.getTask(taskId);
-      setFormData({
-        description: response.data.description,
-        priority: response.data.priority,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const handleGetTask = async () => {
+      try {
+        const response = await tasksApi.getTask(taskId);
+        setFormData({
+          description: response.data.description,
+          priority: response.data.priority,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     handleGetTask();
   }, [modalProps.visible]);
 

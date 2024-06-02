@@ -12,7 +12,7 @@ interface TasksTableProps {
   deleteTask: (id: string) => void;
   updateTask: (id: string, status: UpdateTask) => void;
   onSortPriorityClick: () => void;
-  prioritySort?: SortOptions;
+  sortPriorityValue?: SortOptions;
 }
 
 function TasksTable({
@@ -21,9 +21,10 @@ function TasksTable({
   deleteTask,
   updateTask,
   onSortPriorityClick,
-  prioritySort,
+  sortPriorityValue,
 }: TasksTableProps) {
   const editTaskModalProps = useModal();
+
   const [editTaskId, setEditTaskId] = useState<string | null>(null);
 
   const onEditTaskClick = (id: string) => {
@@ -43,7 +44,7 @@ function TasksTable({
               Priority
               <SortButton
                 onSortPriorityClick={onSortPriorityClick}
-                value={prioritySort}
+                value={sortPriorityValue}
               />
             </div>
           </th>
