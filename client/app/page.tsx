@@ -3,6 +3,7 @@ import CreateTaskModal from "@/components/CreateTaskModal";
 import TasksFilter from "@/components/TasksFilter";
 import TasksHeader from "@/components/TasksHeader";
 import TasksTable from "@/components/TasksTable";
+import Loader from "@/components/common/Loader";
 import useModal from "@/lib/hooks/useModal";
 import useTasks from "@/lib/hooks/useTasks";
 
@@ -19,6 +20,7 @@ export default function Home() {
     tasksSort,
     tasksFilter,
     searchTaskDescription,
+    isLoadingTasks,
   } = useTasks();
 
   const createTaskModalProps = useModal();
@@ -39,6 +41,7 @@ export default function Home() {
         updateTaskStatus={updateTaskStatus}
         onSortPriorityClick={onSortPriorityClick}
         sortPriorityValue={tasksSort.priority}
+        isLoadingTasks={isLoadingTasks}
       />
       <CreateTaskModal {...createTaskModalProps} createTask={createTask} />
     </main>

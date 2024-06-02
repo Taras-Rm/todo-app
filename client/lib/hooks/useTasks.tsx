@@ -11,12 +11,14 @@ import tasksApi from "../api/tasks";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
 
   const [tasksFilter, setTasksFilter] = useState<TasksFilter>({});
   const [tasksSort, setTasksSort] = useState<TasksSort>({});
   const [searchTaskDescription, setSearchTaskDescription] = useState("");
 
   const handleGetAllTasks = async () => {
+    setIsLoadingTasks(true);
     try {
       const { data } = await tasksApi.getAllTasks(
         tasksFilter,
@@ -26,6 +28,8 @@ const useTasks = () => {
       setTasks(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoadingTasks(false);
     }
   };
 
@@ -90,6 +94,7 @@ const useTasks = () => {
     tasksFilter,
     tasksSort,
     searchTaskDescription,
+    isLoadingTasks,
   };
 };
 

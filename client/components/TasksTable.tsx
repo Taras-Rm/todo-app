@@ -5,6 +5,7 @@ import { RiDeleteBin5Fill, RiEdit2Line } from "react-icons/ri";
 import EditTaskModal from "./EditTaskModal";
 import SortButton from "./common/SortButton";
 import { FaCheckCircle } from "react-icons/fa";
+import Loader from "./common/Loader";
 
 interface TasksTableProps {
   tasks: Task[];
@@ -13,6 +14,7 @@ interface TasksTableProps {
   updateTask: (id: string, status: UpdateTask) => void;
   onSortPriorityClick: () => void;
   sortPriorityValue?: SortOptions;
+  isLoadingTasks: boolean;
 }
 
 function TasksTable({
@@ -22,6 +24,7 @@ function TasksTable({
   updateTask,
   onSortPriorityClick,
   sortPriorityValue,
+  isLoadingTasks,
 }: TasksTableProps) {
   const editTaskModalProps = useModal();
 
@@ -32,7 +35,11 @@ function TasksTable({
     setEditTaskId(id);
   };
 
-  if (tasks.length === 0) {
+  if (isLoadingTasks) {
+    return <Loader size="lg" />;
+  }
+
+  if (tasks.length === 0 && !isLoadingTasks) {
     return (
       <div className="flex justify-center pt-20 text-3xl text-gray-500">
         tasks not found
