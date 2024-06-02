@@ -32,6 +32,14 @@ function TasksTable({
     setEditTaskId(id);
   };
 
+  if (tasks.length === 0) {
+    return (
+      <div className="flex justify-center pt-20 text-3xl text-gray-500">
+        tasks not found
+      </div>
+    );
+  }
+
   return (
     <table className="w-full">
       <thead>
