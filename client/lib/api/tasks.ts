@@ -1,6 +1,5 @@
 import {
   CreateTask,
-  Task,
   TaskStatus,
   UpdateTask,
   TasksFilter,
